@@ -1,0 +1,328 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Frontend Binamik Test API Documentation",
+    "description": "This is an API Rent",
+    "version": "1.0.0",
+    "contact": {
+      "email": "victor.alvarenga@binamik.com.br"
+    }
+  },
+  "paths": {
+    "/api/v1/pizzas": {
+      "get": {
+        "tags": ["Pizzas"],
+        "summary": "List",
+        "description": "List all Pizzas",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "type": "string",
+            "description": "Response language (pt or en)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "string"
+                      },
+                      "isAvailable": {
+                        "type": "boolean"
+                      },
+                      "prices": {
+                        "type": "object",
+                        "properties": {
+                          "small": {
+                            "type": "number"
+                          },
+                          "medium": {
+                            "type": "number"
+                          },
+                          "large": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "pizza_01",
+                      "title": "Mozzarella",
+                      "description": "Special mozzarella cheese, served over a grape tomato sauce",
+                      "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1350&q=80",
+                      "isAvailable": true,
+                      "prices": {
+                        "small": 4125,
+                        "medium": 5500,
+                        "large": 8250
+                      }
+                    },
+                    {
+                      "id": "pizza_02",
+                      "title": "Pepperoni",
+                      "description": "Delicious stices of our own pepperoni, served with our special mozzarella",
+                      "image": "https://images.unsplash.com/photo-1605478371310-a9f1e96b4ff4?w=1350&q=80",
+                      "isAvailable": true,
+                      "prices": {
+                        "small": 4425,
+                        "medium": 5900,
+                        "large": 8850
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/appError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pizzas/{id}": {
+      "get": {
+        "tags": ["Pizzas"],
+        "summary": "Get Single",
+        "description": "Get a Single Pizza",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Pizza ID"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "type": "string",
+            "description": "Response language (pt or en)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "image": {
+                      "type": "string"
+                    },
+                    "isAvailable": {
+                      "type": "boolean"
+                    },
+                    "prices": {
+                      "type": "object",
+                      "properties": {
+                        "small": {
+                          "type": "number"
+                        },
+                        "medium": {
+                          "type": "number"
+                        },
+                        "large": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "availableExtras": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "price": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "id": "pizza_01",
+                    "title": "Mussarela",
+                    "description": "Queijo mussarela especial, servido sobre molho de tomates cereja.",
+                    "availableExtras": [
+                      {
+                        "id": "extra_02",
+                        "price": 350,
+                        "label": "Bacon"
+                      },
+                      {
+                        "id": "extra_03",
+                        "price": 800,
+                        "label": "Borda Recheada"
+                      },
+                      {
+                        "id": "extra_05",
+                        "price": 500,
+                        "label": "Cream Cheese"
+                      },
+                      {
+                        "id": "extra_06",
+                        "price": 700,
+                        "label": "Azeite Trufado"
+                      }
+                    ],
+                    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1350&q=80",
+                    "isAvailable": true,
+                    "prices": {
+                      "small": 4125,
+                      "medium": 5500,
+                      "large": 8250
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/definitions/appError"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/pizza": {
+      "post": {
+        "tags": ["Orders"],
+        "summary": "Create Pizza Order",
+        "description": "Place a new pizza order",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pizzaId": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "string"
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "extras": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "pizzaId": "pizza_01",
+                  "size": "medium",
+                  "notes": "Remove onions please",
+                  "extras": ["extra_02", "extra_05"]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order placed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "confirmed": {
+                      "type": "boolean"
+                    },
+                    "readyIn": {
+                      "type": "number"
+                    }
+                  },
+                  "example": {
+                    "confirmed": "true",
+                    "readyIn": 45
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Invalid Pizza Size"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "appError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "error": "Not Found"
+      }
+    }
+  }
+}

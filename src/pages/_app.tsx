@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppProps } from 'next/app';
+import 'swagger-ui-react/swagger-ui.css';
 
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../styles/global';
